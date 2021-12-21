@@ -9,6 +9,7 @@ export default class extends Command {
         super('graph', '勉強時間をグラフで表示', '', [], 'study');
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     async run(client: Bot, message: Message<boolean>, args: string[]): Promise<void> {
         const dayDate = getDayDate();
         const studyData: Study | undefined = client.database.getStudy(message.author.id, dayDate.year, dayDate.month, dayDate.day);
