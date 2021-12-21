@@ -3,6 +3,7 @@ import { Client, Collection, Intents } from 'discord.js';
 import { readdirSync } from 'fs';
 import { getLogger, configure, shutdown, Logger } from 'log4js';
 import { join } from 'path';
+import { Database } from './database/Database';
 import { Command } from './interfaces';
 configure({
   appenders: {
@@ -20,6 +21,7 @@ configure({
 export class Bot extends Client {
   public readonly logger: Logger;
   public readonly commands: Collection<string, Command>;
+  public readonly database: Database;
 
   constructor() {
     super({
@@ -36,6 +38,7 @@ export class Bot extends Client {
 
     this.logger = getLogger('Studynet-Otetudai');
     this.commands = new Collection();
+    this.database = new Database();
   }
 
   async start(): Promise<void> {

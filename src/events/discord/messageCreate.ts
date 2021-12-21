@@ -1,6 +1,7 @@
 import { Message } from 'discord.js';
 import { Bot } from '../../Bot';
 import { errorLog } from '../../functions/ErrorHandler';
+import { getDayDate } from '../../utility/utility';
 
 export async function run(client: Bot, message: Message): Promise<void> {
     try {
@@ -16,6 +17,13 @@ export async function run(client: Bot, message: Message): Promise<void> {
             await message.reply('このコマンドを実行するための権限が不足しています');
             return;
         }
+
+        // もしデータがなければ登録する
+        const dayDate = getDayDate();
+        if (!client.database.getStudy(message.author.id, dayDate.year, dayDate.month, dayDate.day)) {
+            client.database.initializeStudy(message.author.id, dayDate.year, dayDate.month, dayDate.day);
+        }
+
         cmd.run(client, message, args);
     }
     catch (error) {
