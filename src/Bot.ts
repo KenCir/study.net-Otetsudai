@@ -47,7 +47,7 @@ export class Bot extends Client {
         // eslint-disable-next-line @typescript-eslint/no-misused-promises
         .forEach(async file => {
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          const event = await import(join(__dirname, `/events/discord/${file}`));
+          const event = await import(join(__dirname, `/events/process/${file}`));
           const eventName = file.split('.')[0];
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
           process.on(eventName, event.run.bind(null, this));
